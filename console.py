@@ -153,8 +153,8 @@ class HBNBCommand(cmd.Cmd):
                             att_value = float(value)
                     except Exception:
                         pass
-                setattr(new_instance, att_name, att_value)
-                args = args[2].partition(" ")
+                    setattr(new_instance, att_name, att_value)
+                    args = args[2].partition(" ")
             storage.save()
             print(new_instance.id)
 
