@@ -149,7 +149,7 @@ class HBNBCommand(cmd.Cmd):
                                 .replace('\\"', '"')
                         elif value.find('.') == -1:
                             att_value = int(value)
-                        elif calue.find('.') != -1:
+                        elif value.find('.') != -1:
                             att_value = float(value)
                     except Exception:
                         pass
