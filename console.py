@@ -121,7 +121,6 @@ class HBNBCommand(cmd.Cmd):
         elif args.split()[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        ###Copied from UPDATE
         c_name = c_id = att_name = att_val = kwargs = ''
 
         # isolate cls from id/args, ex: (<cls>, delim, <id/args>)
@@ -143,16 +142,17 @@ class HBNBCommand(cmd.Cmd):
                     kwargs = args[0].partition("=")
                     att_name = kwargs[0]
                     value = kwargs[2]
-                    try: 
+                    try:
                         if value[0] is '"' and value[-1] is '"':
                             value = kwargs[2][1:-1]
-                            att_value = kwargs[2][1:-1].replace('_', ' ').replace('\\"', '"')
+                            att_value = kwargs[2][1:-1].replace('_', ' ')\
+                                .replace('\\"', '"')
                         elif value.find('.') == -1:
                             att_value = int(value)
                         elif calue.find('.') != -1:
                             att_value = float(value)
                     except Exception:
-                        pass 
+                        pass
                 setattr(new_instance, att_name, att_value)
                 args = args[2].partition(" ")
             storage.save()
