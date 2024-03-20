@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
+                    if pline[0] is '{' and pline[-1] is '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -118,13 +118,40 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif args.split()[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
-        print(new_instance.id)
-        storage.save()
+        ###Copied from UPDATE
+        c_name = c_id = att_name = att_val = kwargs = ''
+
+        # isolate cls from id/args, ex: (<cls>, delim, <id/args>)
+        args = args.partition(" ")
+        if args[0]:
+            c_name = args[0]
+        else:  # class name not present
+            print("** class name missing **")
+            return
+        if c_name not in HBNBCommand.classes:  # class name invalid
+            print("** class doesn't exist **")
+            return
+
+        if args[2]:
+            new_instance = HBNBCommand.classes[c_name]()
+            args = args[2].partition(" ")
+            while args[0]:
+                if '=' in args[0]:
+                    kwargs = args[0].partition("=")
+                    att_name = kwargs[0]
+                    att_value = kwargs[2][1:-1].replace('_', ' ').replace('\\"', '"')
+                    setattr(new_instance, att_name, att_value)
+                args = args[2].partition(" ")
+            storage.save()
+            print(new_instance.id)
+
+        else:
+            new_instance = HBNBCommand.classes[c_name]()
+            storage.save()
+            print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
@@ -238,6 +265,7 @@ class HBNBCommand(cmd.Cmd):
 
         # isolate cls from id/args, ex: (<cls>, delim, <id/args>)
         args = args.partition(" ")
+        print("c:{}, id:'{}', att:{}".format(args[0], args[1], args[2]))
         if args[0]:
             c_name = args[0]
         else:  # class name not present
@@ -319,6 +347,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
