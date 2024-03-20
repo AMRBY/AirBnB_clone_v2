@@ -142,6 +142,11 @@ class HBNBCommand(cmd.Cmd):
                 if '=' in args[0]:
                     kwargs = args[0].partition("=")
                     att_name = kwargs[0]
+                    value = kwargs[2][1:-1]
+                    if new_instance.is_int(value):
+                        value = int(value)
+                    elif new_instance.is_float(new_instance.value):
+                        value = float(value)
                     att_value = kwargs[2][1:-1].replace('_', ' ').replace('\\"', '"')
                     setattr(new_instance, att_name, att_value)
                 args = args[2].partition(" ")
