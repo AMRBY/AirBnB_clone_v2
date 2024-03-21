@@ -14,8 +14,8 @@ class FileStorage:
             print_list = []
             for k, v in FileStorage.__objects.items():
                 if k.split('.')[0] == cls:
-                    print_list.append(str(v))
-                    return print_list
+                    FileStorage.__objects[k] = v
+            return(FileStorage.__objects)            
         return FileStorage.__objects
 
     def new(self, obj):
