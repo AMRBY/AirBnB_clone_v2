@@ -8,7 +8,6 @@ class FileStorage:
     __file_path = 'file.json'
     __objects = {}
 
-    @classmethod
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls:
@@ -58,6 +57,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
+        """ delete an object by its key"""
         if obj:
             key = type(obj).__name__ + '.' + obj.id
             if key in FileStorage.__objects.keys():
