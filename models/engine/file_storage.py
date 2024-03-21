@@ -15,7 +15,7 @@ class FileStorage:
             for k, v in FileStorage.__objects.items():
                 if k.split('.')[0] == cls:
                     FileStorage.__objects[k] = v
-            return(FileStorage.__objects)            
+            return(FileStorage.__objects)
         return FileStorage.__objects
 
     def new(self, obj):
