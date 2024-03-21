@@ -15,7 +15,7 @@ class FileStorage:
         else:
             all_cls = {}
             for k, v in FileStorage.__objects.items():
-                if v ==  cls:
+                if isinstance(v, cls):
                     all_cls[k] = v
             return all_cls
 
