@@ -4,13 +4,7 @@
 sudo apt-get -y install nginx
 mkdir -p /data/web_static/releases/test
 mkdir -p /data/web_static/shared
-echo -e "<html>
-	<head>
-	</head>
-	<body>
-		Holberton School
-	</body>
-</html>" > ./data/web_static/releases/test/index.html
+echo "Holberton School" > ./data/web_static/releases/test/index.html
 
 if [ -L ./data/web_static/current ]; then
 	rm ./data/web_static/current
