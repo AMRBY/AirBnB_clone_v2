@@ -1,4 +1,5 @@
 #!/usr/bin/python3
-from fabric import *
+from fabric import task, local
+@task
 def host_type():
-    run('uname -s')
+    local('echo Hello!')
