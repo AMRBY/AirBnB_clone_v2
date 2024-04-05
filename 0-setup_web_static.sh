@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # create web static for a server
 
-#if (! dpkg-query -W "nginx" >/dev/null 2>&1); then
-#	sudo apt-get install nginx
-#fi
+if (! dpkg-query -W "nginx" >/dev/null 2>&1); then
+	sudo apt-get -y install nginx
+fi
 if [ ! -d ./data ]; then
 	mkdir ./data/
 	mkdir ./data/web_static/
