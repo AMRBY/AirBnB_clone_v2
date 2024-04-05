@@ -5,11 +5,7 @@ sudo apt-get -y install nginx
 mkdir -p /data/web_static/releases/test
 mkdir -p /data/web_static/shared
 echo "Holberton School" > ./data/web_static/releases/test/index.html
-
-if [ -L ./data/web_static/current ]; then
-	rm ./data/web_static/current
-fi
-ln -s ./data/web_static/releases/test/ ./data/web_static/current
+sudo ln -fs ./data/web_static/releases/test/ ./data/web_static/current
 sudo chown -R ubuntu:ubuntu ./data
 
 red_from="location / {"
