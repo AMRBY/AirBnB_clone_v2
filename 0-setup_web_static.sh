@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
-# create web static for a server
+# Sets up a web server for the deployment of web_static
 
-sudo apt-get -y install nginx
+apt-get update
+apt-get install -y nginx
+
 mkdir -p /data/web_static/releases/test
 mkdir -p /data/web_static/shared
-echo "Holberton School" > ./data/web_static/releases/test/index.html
-sudo ln -fs ./data/web_static/releases/test/ ./data/web_static/current
-sudo chown -R ubuntu:ubuntu ./data
+echo "Hello World!" > /data/web_static/releases/test/index.html
+ls -sf /data/web_static/releases/test/ /data/web_static/current
 
-red_from="location / {"
-red_to="location /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}"
-sed -i "s#$red_from#$red_to#" /etc/nginx/sites-available/default
+chown -R ubuntu /data/
+chgrp -R ubuntu /data/
+
+sed -i "61i\ \n\tlocation /hbnb_static {\n\t\talias /data/web_static/current;\n\t\tautoindex off;\n\t}" /etc/nginx/sites-available/default
+
 service nginx restart
