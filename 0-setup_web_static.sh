@@ -12,5 +12,5 @@ ln -s /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data
 red_from="location / {"
 red_to="location /hbnb_static/ {\n\t\talias /data/web_static/current/;\n"
-sed -i "s#$red_from#$red_to#" /etc/nginx/sites-available/default
+sed -i "s#^$red_from#$red_to#" /etc/nginx/sites-available/default
 service nginx restart
