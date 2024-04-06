@@ -21,7 +21,8 @@ def do_deploy(archive_path):
         run(f'tar -xzf /tmp/{name_tar} -C\
                 /data/web_static/releases/{name}')
         run(f'rm /tmp/{name_tar}')
-        run(f'cp -rp /data/web_static/releases/{name}/web_static/* /data/web_static/releases/{name}')
+        run(f'cp -rp /data/web_static/releases/{name}/web_static/* \
+                /data/web_static/releases/{name}')
         run(f'rm -rf /data/web_static/releases/{name}/web_static')
         run(f'rm -rf /data/web_static/current')
         run(f'ln -s /data/web_static/releases/{name} \
