@@ -7,7 +7,8 @@ Fabric script creates and distributes an archive to your web servers, using the 
 from fabric.api import put, run, env
 from os.path import exists
 
-env.hosts = ['54.157.183.53', '100.25.145.25']
+env.hosts = ['35.175.129.122', '34.224.16.6']
+
 
 def do_deploy(archive_path):
     """distributes archive remotely"""
