@@ -10,6 +10,15 @@ env.hosts = ['35.175.129.122', '34.224.16.6']
 
 def do_deploy(archive_path):
     """ create a directory and archive"""
+    now = datetime.now()
+    now_f = now.strftime("%Y%m%d%H%M%S")
+    local('mkdir -p versions')
+    result = local(f'tar -caf versions/web_static_{now_f}.tgz web_static')
+    if result.succeeded:
+        return f'versions/web_static_{now_f}.tgz'
+    else:
+        return None
+
     res = local(f'ls {archive_path}')
     if res.failed:
         return False
