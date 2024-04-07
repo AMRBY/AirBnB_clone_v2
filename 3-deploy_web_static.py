@@ -13,11 +13,12 @@ def do_pack():
     """ create a directory and archive"""
     now = datetime.now()
     now_f = now.strftime("%Y%m%d%H%M%S")
+    archive_name = f'versions/web_static_{now_f}.tgz'
     local('mkdir -p versions')
-    result = local(f'tar -caf versions/web_static_{now_f}.tgz \
+    result = local(f'tar -caf {archive_name} \
             web_static', capture=True)
     if result.succeeded:
-        return result
+        return archive_name
     else:
         return False
 
@@ -52,4 +53,4 @@ def do_deploy(archive_path):
 def deploy():
     tar = do_pack()
     x = do_deploy(tar)
-    return (x)
+    return x
