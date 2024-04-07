@@ -15,8 +15,8 @@ def do_pack():
     now_f = now.strftime("%Y%m%d%H%M%S")
     archive_name = f'versions/web_static_{now_f}.tgz'
     local('mkdir -p versions')
-    result = local(f'tar -caf {archive_name} \
-            web_static', capture=True)
+    result = local(f'tar -cvaf {archive_name} \
+            web_static')
     if result.succeeded:
         return archive_name
     else:
