@@ -24,7 +24,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """ create a directory and archive"""
+    """ deploy a new version to servers"""
 
     if not exists(archive_path):
         return False
@@ -51,6 +51,7 @@ def do_deploy(archive_path):
 
 
 def deploy():
+    """ archive and deploy a new version to servers"""
     tar = do_pack()
     x = do_deploy(tar)
     return x
