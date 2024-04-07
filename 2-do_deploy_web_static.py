@@ -1,31 +1,34 @@
-
 #!/usr/bin/python3
-"""
-Fabric script creates and distributes an archive to your web servers, using the function deploy
-"""
-
-from fabric.api import put, run, env
+""" this is a fab script to archive a directory"""
+from fabric.api import env
+from fabric.operations import sudo, run, put, local
 from os.path import exists
 
 env.hosts = ['35.175.129.122', '34.224.16.6']
 
 
 def do_deploy(archive_path):
-    """distributes archive remotely"""
-    if exists(archive_path) is False:
+    """ create a directory and archive"""
+
+    if not exists(archive_path):
         return False
     try:
-        fi = archive_path.split("/")[-1]
-        na = fi.split(".")[0]
-        path = "/data/web_static/releases/"
-        put(archive_path, '/tmp/')
-        run('mkdir -p {}{}/'.format(path, na))
-        run('tar -xzf /tmp/{} -C {}{}/'.format(fi, path, na))
-        run('rm /tmp/{}'.format(fi))
-        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, na))
-        run('rm -rf {}{}/web_static'.format(path, na))
-        run('rm -rf /data/web_static/current')
-        run('ln -s {}{}/ /data/web_static/current'.format(path, na))
+        name_tar = local(f'echo {archive_path} \
+                | cut -d/ -f2', capture=True)
+        name = local(f'echo {name_tar} |cut -d. -f1', capture=True)
+        put(f'{archive_path}', "/tmp/")
+        run(f'mkdir -p /data/web_static/releases/{name}')
+        run(f'tar -xzf /tmp/{name_tar} -C\
+                /data/web_static/releases/{name}')
+        run(f'rm /tmp/{name_tar}')
+        run(f'cp -rp /data/web_static/releases/{name}/web_static/* \
+                /data/web_static/releases/{name}')
+        run(f'rm -rf /data/web_static/releases/{name}/web_static')
+        run(f'rm -rf /data/web_static/current')
+        run(f'ln -s /data/web_static/releases/{name} \
+                /data/web_static/current')
+        sudo(f'chown -R www-data:www-data /data/web_static/current/')
+        print("New version deployed!")
         return True
-    except Exception as e:
+    except Exception:
         return False
