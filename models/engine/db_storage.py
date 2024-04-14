@@ -1,10 +1,16 @@
 #!/usr/bin/python3
 """This module defines a class to manage DB storage for hbnb clone"""
 from os import getenv
-from models import Base, User, State, City, Amenity, Place, Review 
+from models.base_model import BaseModel, Base
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from sqlalchemy import create_engine
 
-
-class DBStrogae(Base):
+class DBStorage:
     """This class should manage the db storage
     """
     __engine = None
@@ -16,7 +22,7 @@ class DBStrogae(Base):
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
                 .format(getenv('HBNB_MYSQL_USER'), 
                     getenv('HBNB_MYSQL_PWD'), getenv('HBNB_MYSQL_HOST'), 
-                    getenv('HBNB_MYSQL_DB'), pool_pre_ping=True)
+                    getenv('HBNB_MYSQL_DB'), pool_pre_ping=True))
 
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
@@ -24,22 +30,22 @@ class DBStrogae(Base):
     def all(self, cls=None):
         """show all queries"""
         dictionnary = {}
-        self.__session = Session(self.__engine)
+        #self.__session = Session(self.__engine)
         if cls:
             for row_data in self.__session.query(cls).all():
-                key = self.__class__.__name__ + '.' + self.id
+                key = row_data.__class__.__name__ + '.' + row_data.id
                 dictionnary[key] = row_data
         else:
             #for k, v in self.__classes.items():
-            for row_data in self.__session.query().all():
-                key = self.__class__.__name__ + '.' + self.id
+            for row_data in self.__session.query(cls).all():
+                key = row_data.__class__.__name__ + '.' + row_data.id
                 dictionnary[key] = row_data
 
         return dictionnary
 
     def new(self, obj):
         """add a new object to DB"""
-        self.__session.add(obj)
+        self.__session.merge(obj)
 
     def save(self):
         """save an object to DB"""
