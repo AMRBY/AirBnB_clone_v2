@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 """This module defines a class User"""
 from models.base_model import BaseModel, Base
+from models.place import Place
+from models.review import Review
+from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, ForeignKey
 from os import getenv
 
@@ -13,7 +16,7 @@ class User(BaseModel, Base):
         first_name = Column(String(128))
         last_name = Column(String(128))
         places = relationship('Place', cascade='all, delete', backref='user')
-        reviews = relationship('Review', cascade='all, delete', backref='review')
+        reviews = relationship('Review', cascade='all, delete', backref='user')
     else:
         email = ''
         password = ''
@@ -44,4 +47,4 @@ class User(BaseModel, Base):
                 if val.user_id == self.id:
                     reviews_list.append(val)
 
-            return places_list
+            return reviews_list
