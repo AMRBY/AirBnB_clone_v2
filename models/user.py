@@ -13,6 +13,7 @@ class User(BaseModel, Base):
         first_name = Column(String(128))
         last_name = Column(String(128))
         places = relationship('Place', cascade='all, delete', backref='user')
+        reviews = relationship('Review', cascade='all, delete', backref='review')
     else:
         email = ''
         password = ''
@@ -29,5 +30,18 @@ class User(BaseModel, Base):
             for val in storage.all(Place).values():
                 if val.user_id == self.id:
                     places_list.append(val)
+
+            return places_list
+        @property
+        def reviews(self):
+            """ Getter method
+            Returns a list of City instances with state_id == State.id
+            """
+            from models import storage
+
+            reviews_list = []
+            for val in storage.all(Review).values():
+                if val.user_id == self.id:
+                    reviews_list.append(val)
 
             return places_list
