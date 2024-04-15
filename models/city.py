@@ -15,3 +15,17 @@ class City(BaseModel, Base):
     else:
         name = ''
         state_id = ''
+
+        @property
+        def places(self):
+            """ Getter method
+            Returns a list of City instances with state_id == State.id
+            """
+            from models import storage
+
+            places_list = []
+            for val in storage.all(Place).values():
+                if val.city_id == self.id:
+                    places_list.append(val)
+
+            return places_list

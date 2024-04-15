@@ -18,3 +18,16 @@ class User(BaseModel, Base):
         password = ''
         first_name = ''
         last_name = ''
+        @property
+        def places(self):
+            """ Getter method
+            Returns a list of City instances with state_id == State.id
+            """
+            from models import storage
+
+            places_list = []
+            for val in storage.all(Place).values():
+                if val.user_id == self.id:
+                    places_list.append(val)
+
+            return places_list
