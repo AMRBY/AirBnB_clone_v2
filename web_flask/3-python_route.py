@@ -30,7 +30,7 @@ def c_text(text):
 def python_text(text):
     """ it displays Hello"""
     text = text.replace('_', ' ')
-    return f'python {text}'
+    return f'python {escape(text)}'
 
 
 if __name__ == '__main__':
