@@ -37,7 +37,7 @@ def python_text(text=None):
 """
 
 
-@app.route("/python")
+@app.route("/python", strict_slashes=False)
 @app.route("/python/<text>")
 def python_is_cool(text=None):
     if text is None:
