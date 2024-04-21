@@ -29,7 +29,7 @@ def c_text(text):
 @app.route('/python/<text>')
 def python_text(text=None):
     if text is None:
-        return 'python is cool'
+        return 'Python is cool'
     else:
         text = text.replace('_', ' ')
         return f'python {text}'
