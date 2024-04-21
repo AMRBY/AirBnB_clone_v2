@@ -32,15 +32,13 @@ class BaseModel:
                 '%Y-%m-%dT%H:%M:%S.%f')
             kwargs.pop('__class__', None)
             self.__dict__.update(kwargs)
-            try:
-                self.__dict__.pop("_sa_instance_state")
-            except Exception:
-                pass
 
     def __str__(self):
         """Returns a string representation of the instance"""
+        display = self.__dict__.copy()
+        display.pop('_sa_instance_state', None)
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        return '[{}] ({}) {}'.format(cls, self.id, display)
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
@@ -57,10 +55,7 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-        try:
-            del dictionary['_sa_instance_state']
-        except Exception:
-            pass
+        dictionary.pop('_sa_instance_state', None)
 
         return dictionary
 

@@ -7,9 +7,10 @@ from models.state import State
 from models.city import City
 
 
+state_0 = State()
+print("New state: {}".format(state_0))
 state_1 = State(name="California")
 print("New state: {}".format(state_1))
-"""
 state_1.save()
 state_2 = State(name="Arizona")
 print("New state: {}".format(state_2))
@@ -31,4 +32,3 @@ all_states = storage.all(State)
 for state_id, state in all_states.items():
     for city in state.cities:
         print("Find the city {} in the state {}".format(city, state))
-        """
