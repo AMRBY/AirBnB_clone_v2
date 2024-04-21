@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 from os import getenv
 
 
-place_amenity = Table('place_amenity', Base.metadata, Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False), Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False))
+# place_amenity = Table('place_amenity', Base.metadata, Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False), Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False))
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -24,7 +24,7 @@ class Place(BaseModel, Base):
         latitude = Column(Float)
         longitude = Column(Float)
         reviews = relationship('Review', cascade='all, delete', backref='place')
-        amenities = relationship('Amenity', secondary='place_amenity', viewonly=False , cascade='all, delete', back_populates="place_amenities")
+        # amenities = relationship('Amenity', secondary='place_amenity', viewonly=False , cascade='all, delete', back_populates="place_amenities")
     else:
         city_id = ""
         user_id = ""
