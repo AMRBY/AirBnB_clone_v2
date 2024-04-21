@@ -26,13 +26,13 @@ def c_text(text):
 
 
 @app.route('/python', strict_slashes=False)
-@app.route('/python/<text>')
+@app.route('/python/<text>', strict_slashes=False)
 def python_text(text=None):
     if text is None:
         return 'Python is cool'
     else:
         text = text.replace('_', ' ')
-        return f'python {text}'
+        return f'Python {text}'
 
 
 if __name__ == '__main__':
