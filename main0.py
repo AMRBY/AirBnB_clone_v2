@@ -7,8 +7,6 @@ from models.state import State
 from models.city import City
 
 
-state_0 = State()
-print("New state: {}".format(state_0))
 state_1 = State(name="California")
 print("New state: {}".format(state_1))
 state_1.save()
