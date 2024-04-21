@@ -27,15 +27,15 @@ def c_text(text):
 
 
 @app.route('/python', strict_slashes=False)
-@app.route('/python/<text>')
+@app.route('/python/<text>', strict_slashes=False)
 # @app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 def python_text(text=None):
     """ it displays Hello"""
-    if text is not None:
-        text = text.replace('_', ' ')
-        return f'python {escape(text)}'
-    else:
+    if text is None:
         return 'python is cool'
+    else:
+        text = text.replace('_', ' ')
+        return f'python {text}'
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
