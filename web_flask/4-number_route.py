@@ -32,9 +32,9 @@ def python_text(text=None):
     """ it displays Hello"""
     if text is not None:
         text = text.replace('_', ' ')
-        return f'python {escape(text)}'
+        return f'Python {escape(text)}'
     else:
-        return 'python is cool'
+        return 'Python is cool'
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
