@@ -32,10 +32,10 @@ def c_text(text):
 def python_text(text=None):
     """ it displays Hello"""
     if text is None:
-        return 'python is cool'
+        return 'Python is cool'
     else:
         text = text.replace('_', ' ')
-        return f'python {text}'
+        return f'Python {text}'
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
