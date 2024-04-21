@@ -29,11 +29,11 @@ def c_text(text):
 @app.route('/python/<text>')
 def python_text(text=None):
     """ it displays Hello"""
-    if text is not None:
+    if text is None:
+        return 'python is cool'
+    else:
         text = text.replace('_', ' ')
         return f'python {escape(text)}'
-    else:
-        return 'python is cool'
 
 
 if __name__ == '__main__':
