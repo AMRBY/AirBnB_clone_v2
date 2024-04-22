@@ -4,7 +4,7 @@ from flask import Flask
 from markupsafe import escape
 from flask import render_template
 from models import storage
-from models.state import State 
+from models.state import State
 
 app = Flask(__name__)
 
@@ -14,8 +14,7 @@ def states_list():
     """ it displays states"""
     states = list(storage.all(State).values())
     print(states)
-    states.sort(key = lambda x : x.name)
-    #ls = {'states': states}
+    states.sort(key=lambda x: x.name)
     return render_template("7-states_list.html", states=states)
 
 
