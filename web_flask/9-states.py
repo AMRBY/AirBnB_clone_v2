@@ -14,16 +14,18 @@ app = Flask(__name__)
 @app.route("/states/<ids>", strict_slashes=False)
 def states_id(ids=None):
     """ it displays states"""
+    states = list(storage.all(State).values())
     if ids is None:
-        states = list(storage.all(State).values())
         states.sort(key=lambda x: x.name)
-        return render_template("9-states.html", states=states)
-    elif storage.all(State):
-        states = list(storage.all(State).values())
-        states.sort(key=lambda x: x.name)
+        return render_template("9-states.html", states=states, cities=None)
+    else:
         for state in states:
-            state.cities.sort(key=lambda x: x.name)
-        return render_template("9-states.html", states=states)
+            if state.id == ids:
+                state.cities.sort(key=lambda x: x.name)
+                return render_template(
+                        "9-states.html", cities=state.cities,
+                        name=state.name, yes=1)
+        return render_template("9-states.html", cities='something', yes=0)
 
 
 @app.teardown_appcontext

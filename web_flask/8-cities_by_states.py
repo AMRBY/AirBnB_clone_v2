@@ -28,7 +28,6 @@ def cities_states():
     return render_template("8-cities_by_states.html", states=states)
 
 
-
 @app.teardown_appcontext
 def clean_up(exception):
     """ it cleans the context """
