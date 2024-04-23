@@ -8,7 +8,7 @@ from models.user import User
 from models.place import Place
 from models.state import State
 from models.city import City
-from models.amenity import Amenity
+#from models.amenity import Amenity
 from models.review import Review
 
 
@@ -18,11 +18,9 @@ class HBNBCommand(cmd.Cmd):
     # determines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
-    classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+    classes = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
+               'State': State, 'City': City,
+               'Review': Review}
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
              'number_rooms': int, 'number_bathrooms': int,
@@ -249,7 +247,7 @@ class HBNBCommand(cmd.Cmd):
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage.all(classes[args]).items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)

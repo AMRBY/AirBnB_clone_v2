@@ -23,9 +23,9 @@ def cities_states():
     """ it displays states"""
     states = list(storage.all(State).values())
     states.sort(key=lambda x: x.name)
-    cities = list(storage.all(City).values())
-    cities.sort(key=lambda x: x.name)
-    return render_template("8-cities_by_states.html", states=states, cities=cities)
+    for state in states:
+        state.cities.sort(key=lambda x: x.name)
+    return render_template("8-cities_by_states.html", states=states)
 
 
 
